@@ -1,0 +1,6 @@
+environment: development
+stage: development
+workloadCode: bee
+certManagerServiceAccountIAMRole: arn:aws:iam::831710383734:role/e2-beedev-iro-cert-manager
+clusterName: e2-beedev-eks-cluster
+branch: master

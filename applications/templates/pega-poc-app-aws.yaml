@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: '{{ required "A valid environment is required" .Values.environment }}-{{ required "A valid workloadCode is required" .Values.workloadCode }}-hasuratest'
+  namespace: argo-cd
+spec:
+  destination:
+    name: '{{ required "A valid EKS cluster arn is required" .Values.clusterName }}'
+  project: e2-bee
+  source:
+    helm:
+      valueFiles:
+        - 'values-{{ required "A valid environment is required" .Values.environment }}.yaml'
+    path: hasuratest
+    repoURL: https://gitlab.com/scripps/eit/itops/corp-terraform/bee-root/bee-app-cicd.git
+    targetRevision: '{{ required "A valid branch is required" .Values.branch }}'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
